@@ -1,0 +1,157 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #3e0a3c, #5a1d2b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: white;
+}
+
+.container {
+    background-color: rgba(20, 20, 20, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+    width: 700px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 36px;
+    color: #170f0f;
+    animation: shine 3s linear infinite;
+}
+h3 {
+    color: darkred;
+    font-size: 13px;
+    font-style: italic;
+    text-align: left;
+    padding: 5px;
+    display: block;
+}
+
+@keyframes shine {
+    0% {
+        text-shadow: 0 0 5px #ff3366, 0 0 10px #ff3366, 0 0 15px #ff3366;
+    }
+    50% {
+        text-shadow: 0 0 15px #ff3366, 0 0 30px #ff3366, 0 0 40px #ff3366;
+    }
+    100% {
+        text-shadow: 0 0 5px #ff3366, 0 0 10px #ff3366, 0 0 15px #ff3366;
+    }
+}
+
+input[type="text"] {
+    width: 90%;
+    padding: 15px;
+    border: none;
+    border-radius: 18px;
+    font-size: 18px;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input[type="text"]:focus {
+    border: 2px solid #ff3366;
+    box-shadow: 0 0 10px rgba(255, 51, 102, 0.8);
+}
+
+button {
+    padding: 15px 25px;
+    background: linear-gradient(to right, #9c0d13, #550000);
+    border: none;
+    border-radius: 18px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: 0.55s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: linear-gradient(to right, #550000, #9c0d13);
+    transform: scale(1.05);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 25px;
+}
+
+li {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 15px;
+    margin: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+}
+
+li button {
+    background: #e74c3c;
+    padding: 8px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+li button.edit {
+    background: #9c0d13;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    input[type="text"] {
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+
+    li {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    input[type="text"] {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px 18px;
+    }
+
+    li {
+        font-size: 14px;
+    }
+}
