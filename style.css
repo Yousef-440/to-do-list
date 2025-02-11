@@ -19,6 +19,33 @@ body {
     backdrop-filter: blur(10px);
     max-width: 100%;
     box-sizing: border-box;
+    height: 100%; /* تعيين الارتفاع لملائمة المحتوى */
+    overflow-y: auto; /* تمكين التمرير العمودي فقط */
+    overflow-x: hidden; /* إخفاء التمرير الأفقي */
+    word-wrap: break-word; /* كسر النص عند الحاجة */
+    word-break: break-word; /* التأكد من كسر الكلمة الطويلة */
+}
+
+/* تحسين شريط التمرير */
+.container::-webkit-scrollbar {
+    width: 12px; /* عرض شريط التمرير */
+    background-color: rgba(0, 0, 0, 0.1); /* لون خلفية شريط التمرير */
+    border-radius: 10px; /* تدوير الحواف */
+}
+
+.container::-webkit-scrollbar-thumb {
+    background-color: #ff3366; /* لون مقبض التمرير */
+    border-radius: 10px; /* تدوير الحواف */
+    border: 3px solid rgba(0, 0, 0, 0.1); /* حدود صغيرة حول المقبض */
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background-color: #e74c3c; /* تغيير اللون عند التمرير */
+}
+
+.container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.2); /* خلفية المسار */
+    border-radius: 10px; /* تدوير الحواف */
 }
 
 h1 {
@@ -26,6 +53,7 @@ h1 {
     color: #170f0f;
     animation: shine 3s linear infinite;
 }
+
 h3 {
     color: darkred;
     font-size: 13px;
@@ -117,6 +145,9 @@ li button.edit {
     .container {
         width: 90%;
         padding: 20px;
+        display: flex;
+        flex-direction: column; /* تغيير ترتيب العناصر */
+        align-items: center; /* محاذاة العناصر في المنتصف */
     }
 
     h1 {
@@ -153,5 +184,11 @@ li button.edit {
 
     li {
         font-size: 14px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column; /* تغيير ترتيب العناصر */
+        align-items: center; /* محاذاة العناصر في المنتصف */
     }
 }
