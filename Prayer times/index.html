@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مواقيت الصلاة</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(-45deg, #360202, #271915, rgb(22, 11, 11), #271915);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            direction: rtl;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            margin-top: 75px;
+        }
+
+        .prayer-times {
+            max-width: 700px;
+            margin: auto;
+            background-color: rgba(10, 10, 10, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .table {
+            width: 100%;
+            background: #000000;
+            color: white;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(200, 220, 200, 0.3);
+        }
+
+        .table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #000000;
+        }
+
+        .table th, .table td {
+            padding: 16px 20px;
+            text-align: center;
+        }
+
+        .table td {
+            color: rgb(3, 1, 1);
+            font-weight: 500;
+            font-size: 18px;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        .table tbody tr:nth-child(even) {
+            background: rgba(5, 4, 4, 0.75);
+        }
+
+        .table tbody tr:hover {
+            background: #502626;
+            cursor: pointer;
+        }
+
+        .table th {
+            color: white;
+            font-size: 25px;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .table th:hover {
+            background-color: #160b0b;
+        }
+
+        select {
+    margin-bottom: 25px;
+    padding: 5px 10px;
+    border-radius: 30px;
+    background: rgb(42, 0, 0);
+    color: white;
+    border: 2px solid #1e3c72;
+    font-size: 14px;
+    width: 150px; /* تصغير العرض */
+    height: 35px; /* تصغير الارتفاع */
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+select:hover {
+    background: linear-gradient(to right, #330000, #3b0808);
+    border-color: #ffffff;
+    color: white;
+}
+
+select:focus {
+    outline: none;
+    background: linear-gradient(to right, #ffffff, #000000);
+    border-color: #ffffff;
+}
+
+option {
+    background: #333; /* خلفية الخيارات */
+    color: white; /* لون النص */
+}
+
+option:hover {
+    background: #444; /* خلفية الخيار عند التمرير */
+    color: white; /* التأكد من أن النص يبقى واضح */
+}
+
+
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="prayer-times">
+            <h2 class="mb-4">مواقيت الصلاة</h2>
+            <div id="current-time" class="mb-3"></div>
+            <select id="country" class="form-select" onchange="updateTimes()">
+                <option value="sa">🇸🇦 السعودية</option>
+                <option value="eg">🇪🇬 مصر</option>
+                <option value="ae">🇦🇪 الإمارات</option>
+                <option value="ma">🇲🇦 المغرب</option>
+            </select>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>الصلاة</th>
+                        <th>الوقت</th>
+                    </tr>
+                </thead>
+                <tbody id="prayerTable">
+                    <tr><td>الفجر</td><td>05:10 ص</td></tr>
+                    <tr><td>الظهر</td><td>12:30 م</td></tr>
+                    <tr><td>العصر</td><td>03:45 م</td></tr>
+                    <tr><td>المغرب</td><td>06:20 م</td></tr>
+                    <tr><td>العشاء</td><td>07:50 م</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function updateTimes() {
+            let country = document.getElementById("country").value;
+            let times = {
+                "sa": ["05:10 ص", "12:30 م", "03:45 م", "06:20 م", "07:50 م"],
+                "eg": ["05:00 ص", "12:15 م", "03:30 م", "06:10 م", "07:40 م"],
+                "ae": ["05:20 ص", "12:40 م", "03:50 م", "06:30 م", "08:00 م"],
+                "ma": ["05:30 ص", "12:45 م", "04:00 م", "06:40 م", "08:10 م"]
+            };
+            let table = document.getElementById("prayerTable");
+            let rows = table.getElementsByTagName("tr");
+            for (let i = 0; i < rows.length; i++) {
+                rows[i].getElementsByTagName("td")[1].innerText = times[country][i];
+            }
+        }
+
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById("current-time").innerText = `الوقت الحالي: ${timeString}`;
+        }
+        setInterval(updateCurrentTime, 1000);
+        updateCurrentTime();
+    </script>
+</body>
+</html>
